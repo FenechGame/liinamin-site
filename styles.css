@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Alumni Sans Pinstripe";
-    src: url("fonts/alumni_sans_pinstripe_regular.ttf") format("truetype");
+    src: url("fonts/alumni_sans_pinstripe.woff2") format("woff2");
     font-display: swap;
 }
 
