@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Liinamin.ru</title>
+    <meta name="description" content="Liina Min — digital illustrator. Commissions, prices and portfolio.">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Applied before first paint: a saved choice wins, otherwise the browser language / system theme
+        (function () {
+            var root = document.documentElement, lang, theme;
+            try {
+                lang = localStorage.getItem("lang");
+                theme = localStorage.getItem("theme");
+            } catch (e) {}
+            if (lang !== "ru" && lang !== "en") {
+                lang = (navigator.language || "").toLowerCase().startsWith("ru") ? "ru" : "en";
+            }
+            root.lang = lang;
+            if (theme === "light" || theme === "dark") root.dataset.theme = theme;
+        })();
+    </script>
+    <script src="site.js" defer></script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true">
+    <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></symbol>
+    <symbol id="i-vk" viewBox="0 0 24 24"><path d="m9.489.004.729-.003h3.564l.73.003.914.01.433.007.418.011.403.014.388.016.374.021.36.025.345.03.333.033c1.74.196 2.933.616 3.833 1.516.9.9 1.32 2.092 1.516 3.833l.034.333.029.346.025.36.02.373.025.588.012.41.013.644.009.915.004.98-.001 3.313-.003.73-.01.914-.007.433-.011.418-.014.403-.016.388-.021.374-.025.36-.03.345-.033.333c-.196 1.74-.616 2.933-1.516 3.833-.9.9-2.092 1.32-3.833 1.516l-.333.034-.346.029-.36.025-.373.02-.588.025-.41.012-.644.013-.915.009-.98.004-3.313-.001-.73-.003-.914-.01-.433-.007-.418-.011-.403-.014-.388-.016-.374-.021-.36-.025-.345-.03-.333-.033c-1.74-.196-2.933-.616-3.833-1.516-.9-.9-1.32-2.092-1.516-3.833l-.034-.333-.029-.346-.025-.36-.02-.373-.025-.588-.012-.41-.013-.644-.009-.915-.004-.98.001-3.313.003-.73.01-.914.007-.433.011-.418.014-.403.016-.388.021-.374.025-.36.03-.345.033-.333c.196-1.74.616-2.933 1.516-3.833.9-.9 2.092-1.32 3.833-1.516l.333-.034.346-.029.36-.025.373-.02.588-.025.41-.012.644-.013.915-.009ZM6.79 7.3H4.05c.13 6.24 3.25 9.99 8.72 9.99h.31v-3.57c2.01.2 3.53 1.67 4.14 3.57h2.84c-.78-2.84-2.83-4.41-4.11-5.01 1.28-.74 3.08-2.54 3.51-4.98h-2.58c-.56 1.98-2.22 3.78-3.8 3.95V7.3H10.5v6.92c-1.6-.4-3.62-2.34-3.71-6.92Z"/></symbol>
+    <symbol id="i-twitch" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
+    <symbol id="i-donate" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+</svg>
+
+<div class="rain" aria-hidden="true">
+    <i style="--x:4%;--d:9s;--w:-2s;--o:.9"></i>
+    <i style="--x:17%;--d:13s;--w:-7s;--o:.5"></i>
+    <i style="--x:31%;--d:10s;--w:-4s;--o:.35"></i>
+    <i style="--x:46%;--d:15s;--w:-11s;--o:.7"></i>
+    <i style="--x:60%;--d:11s;--w:-1s;--o:.45"></i>
+    <i style="--x:74%;--d:14s;--w:-9s;--o:.8"></i>
+    <i style="--x:88%;--d:9.5s;--w:-5s;--o:.4"></i>
+    <i style="--x:101%;--d:12s;--w:-3s;--o:.6"></i>
+</div>
+
+<header class="controls">
+    <div class="seg" role="group" aria-label="Language">
+        <button type="button" data-set-lang="ru">RU</button>
+        <button type="button" data-set-lang="en">EN</button>
+    </div>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Theme">
+        <svg class="icon-sun"><use href="#i-sun"/></svg>
+        <svg class="icon-moon"><use href="#i-moon"/></svg>
+    </button>
+</header>
+
+<main>
+    <!-- Home -->
+    <section id="home" class="card card--home">
+        <div class="intro">
+            <h1 class="title">Liina Min</h1>
+
+            <p class="subtitle">
+                <span lang="ru">Художник</span>
+                <span lang="en">Digital Illustrator</span>
+            </p>
+
+            <!-- Order status: when commissions are closed, add class "status--closed"
+                 and replace the text with "заказы закрыты" / "commissions closed" -->
+            <p class="status">
+                <span lang="ru">заказы открыты</span>
+                <span lang="en">commissions open</span>
+            </p>
+
+            <nav class="buttons">
+                <a class="btn" href="#prices">
+                    <span lang="ru">Прайс</span>
+                    <span lang="en">Prices</span>
+                    <svg><use href="#i-list"/></svg>
+                </a>
+                <a class="btn" href="#portfolio">
+                    <span lang="ru">Портфолио</span>
+                    <span lang="en">Portfolio</span>
+                    <svg><use href="#i-image"/></svg>
+                </a>
+            </nav>
+
+            <nav class="socials">
+                <a href="https://t.me/lineriumart" target="_blank" rel="noopener" title="Telegram" aria-label="Telegram"><svg><use href="#i-telegram"/></svg></a>
+                <a href="https://vk.com/linerium" target="_blank" rel="noopener" title="VK" aria-label="VK"><svg><use href="#i-vk"/></svg></a>
+                <a href="https://www.twitch.tv/liina_min" target="_blank" rel="noopener" title="Twitch" aria-label="Twitch"><svg><use href="#i-twitch"/></svg></a>
+                <a href="https://www.youtube.com/@Liinamin" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
+                <a href="https://www.donationalerts.com/r/liina_min" target="_blank" rel="noopener" title="DonationAlerts" aria-label="DonationAlerts"><svg><use href="#i-donate"/></svg></a>
+            </nav>
+        </div>
+
+        <img class="cover" src="img/portrait.webp" width="1080" height="1080" alt="Liina Min">
+    </section>
+
+    <!-- Prices -->
+    <section id="prices" class="card card--text">
+        <a class="btn btn--small" href="#">
+            <svg><use href="#i-back"/></svg>
+            <span lang="ru">Назад</span>
+            <span lang="en">Home</span>
+        </a>
+
+        <h2 class="heading">
+            <span lang="ru">Прайс</span>
+            <span lang="en">Prices</span>
+        </h2>
+
+        <ul class="prices">
+            <li>
+                <span lang="ru">Портрет</span><b lang="ru">1900₽</b>
+                <span lang="en">Portrait</span><b lang="en">$20</b>
+            </li>
+            <li>
+                <span lang="ru">Пол тела</span><b lang="ru">3000₽</b>
+                <span lang="en">Half Body</span><b lang="en">$35</b>
+            </li>
+            <li>
+                <span lang="ru">Полный рост</span><b lang="ru">4800₽</b>
+                <span lang="en">Full Body</span><b lang="en">$50</b>
+            </li>
+            <li>
+                <span lang="ru">Live 2D model (полный рост)</span><b lang="ru">27000₽</b>
+                <span lang="en">Live2D model (full body)</span><b lang="en">$300</b>
+            </li>
+        </ul>
+
+        <p class="divider" aria-hidden="true">✦ ﹀﹀﹀﹀ ✦</p>
+
+        <div class="terms" lang="ru">
+            <p>Предоплата 50% до скетча, 50% после</p>
+            <ul>
+                <li>Простой фон (градиент, заливка) идёт бесплатно</li>
+                <li>Фон средней сложности (Размытый без деталей): 800₽</li>
+                <li>Сложный фон: От 1300₽ (В зависимости от количества деталей и уровня проработки)</li>
+                <li>Предоставляется 3 бесплатные правки, все последующие +100₽</li>
+                <li>После заливки цвета все правки платные.</li>
+                <li>Дополнительный персонаж +100%</li>
+                <li>Коммерческое использование +100%</li>
+                <li>За выполнение работы в сжатые сроки +25%</li>
+            </ul>
+            <ul>
+                <li>Срок выполнения работы до одного месяца</li>
+                <li>Возврат средств не производится после того как я начала работу над заказом</li>
+                <li>Я оставляю за собой право публиковать готовую работу в соцсетях и портфолио</li>
+            </ul>
+            <h3>Не рисую</h3>
+            <ul class="no">
+                <li>Фурри (Ушки/рога не считаются)</li>
+                <li>Реалистичные портреты</li>
+                <li>Сложную механику, меха</li>
+                <li>Оскорбительный или политический контент</li>
+            </ul>
+        </div>
+
+        <div class="terms" lang="en">
+            <p>50% upfront before sketch, 50% after</p>
+            <ul>
+                <li>Simple background (gradient, solid color) is free</li>
+                <li>Medium complexity background (blurred, no details): $10</li>
+                <li>Complex background: from $15 (depending on detail level)</li>
+                <li>3 free revisions included, each additional +$2</li>
+                <li>After coloring stage, all revisions are paid</li>
+                <li>Additional character +100%</li>
+                <li>Commercial use +100%</li>
+                <li>Rush order +25%</li>
+            </ul>
+            <ul>
+                <li>Completion time: up to one month</li>
+                <li>No refunds after work has started</li>
+                <li>I reserve the right to publish finished work in my social media and portfolio</li>
+            </ul>
+            <h3>Will not draw</h3>
+            <ul class="no">
+                <li>Furry (ears/horns are okay)</li>
+                <li>Realistic portraits</li>
+                <li>Complex machinery, mecha</li>
+                <li>Offensive or political content</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="card card--wide">
+        <a class="btn btn--small" href="#">
+            <svg><use href="#i-back"/></svg>
+            <span lang="ru">Назад</span>
+            <span lang="en">Home</span>
+        </a>
+
+        <h2 class="heading">
+            <span lang="ru">Портрет</span>
+            <span lang="en">Portrait</span>
+        </h2>
+        <div class="gallery">
+            <a href="img/portrait_7.webp" style="--r:1280/1280"><img src="img/portrait_7.webp" width="1280" height="1280" alt="Portrait" loading="lazy" decoding="async"></a>
+            <a href="img/portrait_6.webp" style="--r:512/512"><img src="img/portrait_6.webp" width="512" height="512" alt="Portrait" loading="lazy" decoding="async"></a>
+            <a href="img/portrait_5.webp" style="--r:1280/512"><img src="img/portrait_5.webp" width="1280" height="512" alt="Portrait" loading="lazy" decoding="async"></a>
+            <a href="img/portrait_4.webp" style="--r:1280/512"><img src="img/portrait_4.webp" width="1280" height="512" alt="Portrait" loading="lazy" decoding="async"></a>
+            <a href="img/portrait_3.webp" style="--r:1080/1080"><img src="img/portrait_3.webp" width="1080" height="1080" alt="Portrait" loading="lazy" decoding="async"></a>
+            <a href="img/portrait_2.webp" style="--r:1080/1080"><img src="img/portrait_2.webp" width="1080" height="1080" alt="Portrait" loading="lazy" decoding="async"></a>
+            <a href="img/portrait.webp" style="--r:1080/1080"><img src="img/portrait.webp" width="1080" height="1080" alt="Portrait" loading="lazy" decoding="async"></a>
+        </div>
+
+        <h2 class="heading">
+            <span lang="ru">Пол тела</span>
+            <span lang="en">Half Body</span>
+        </h2>
+        <div class="gallery">
+            <a href="img/halfbody9.webp" style="--r:1280/720"><img src="img/halfbody9.webp" width="1280" height="720" alt="Half body" loading="lazy" decoding="async"></a>
+            <a href="img/halfbody8.webp" style="--r:853/1280"><img src="img/halfbody8.webp" width="853" height="1280" alt="Half body" loading="lazy" decoding="async"></a>
+            <a href="img/halfbody7.webp" style="--r:1280/720"><img src="img/halfbody7.webp" width="1280" height="720" alt="Half body" loading="lazy" decoding="async"></a>
+            <a href="img/halfbody6.webp" style="--r:853/1280"><img src="img/halfbody6.webp" width="853" height="1280" alt="Half body" loading="lazy" decoding="async"></a>
+            <a href="img/halfbody5.webp" style="--r:853/1280"><img src="img/halfbody5.webp" width="853" height="1280" alt="Half body" loading="lazy" decoding="async"></a>
+            <a href="img/halfbody4.webp" style="--r:853/1280"><img src="img/halfbody4.webp" width="853" height="1280" alt="Half body" loading="lazy" decoding="async"></a>
+            <a href="img/halfbody3.webp" style="--r:853/1280"><img src="img/halfbody3.webp" width="853" height="1280" alt="Half body" loading="lazy" decoding="async"></a>
+            <a href="img/halfbody2.webp" style="--r:720/1080"><img src="img/halfbody2.webp" width="720" height="1080" alt="Half body" loading="lazy" decoding="async"></a>
+            <a href="img/halfbody.webp" style="--r:1080/1527"><img src="img/halfbody.webp" width="1080" height="1527" alt="Half body" loading="lazy" decoding="async"></a>
+        </div>
+
+        <h2 class="heading">
+            <span lang="ru">Полный рост</span>
+            <span lang="en">Full Body</span>
+        </h2>
+        <div class="gallery">
+            <a href="img/fullbody4.webp" style="--r:768/1280"><img src="img/fullbody4.webp" width="768" height="1280" alt="Full body" loading="lazy" decoding="async"></a>
+            <a href="img/fullbody3.webp" style="--r:2400/960"><img src="img/fullbody3.webp" width="2400" height="960" alt="Full body" loading="lazy" decoding="async"></a>
+            <a href="img/fullbody2.webp" style="--r:2067/1080"><img src="img/fullbody2.webp" width="2067" height="1080" alt="Full body" loading="lazy" decoding="async"></a>
+            <a href="img/fullbody.webp" style="--r:1080/648"><img src="img/fullbody.webp" width="1080" height="648" alt="Full body" loading="lazy" decoding="async"></a>
+        </div>
+
+        <h2 class="heading">
+            <span lang="ru">Live 2D model</span>
+            <span lang="en">Live2D model</span>
+        </h2>
+        <div class="gallery">
+            <a href="img/model2d_2.webp" style="--r:1080/608"><img src="img/model2d_2.webp" width="1080" height="608" alt="Live2D model" loading="lazy" decoding="async"></a>
+            <a href="img/model2d.webp" style="--r:1381/920"><img src="img/model2d.webp" width="1381" height="920" alt="Live2D model" loading="lazy" decoding="async"></a>
+        </div>
+
+        <a class="btn btn--small" href="#">
+            <svg><use href="#i-back"/></svg>
+            <span lang="ru">Назад</span>
+            <span lang="en">Home</span>
+        </a>
+    </section>
+</main>
+
+<dialog id="lightbox" aria-label="Image preview"><img alt=""></dialog>
+</body>
+</html>

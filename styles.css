@@ -1,0 +1,515 @@
+@font-face {
+    font-family: "Alumni Sans Pinstripe";
+    src: url("fonts/alumni_sans_pinstripe_regular.ttf") format("truetype");
+    font-display: swap;
+}
+
+/* Theme: follows the system by default, data-theme on <html> forces one */
+:root {
+    color-scheme: light dark;
+
+    --bg: light-dark(#f3faf3, #0d1611);
+    --band: light-dark(#a8e0b0, #173524);
+    --card: light-dark(#ffffff, #15221a);
+    --glow: light-dark(rgba(111, 201, 128, .45), rgba(73, 201, 110, .18));
+    --text: light-dark(#23402c, #e2f3e5);
+    --muted: light-dark(#5f7d66, #9dbba4);
+    --accent: light-dark(#2f9455, #7fdc96);
+    --btn: light-dark(#d2f1d6, #23422e);
+    --btn-hover: light-dark(#bde8c3, #2c553a);
+    --btn-text: light-dark(#1d6a39, #b9f0c5);
+    --line: light-dark(#bfe6c5, #244a31);
+    --rain: light-dark(#9fdcaa, #2f6b43);
+    --no: light-dark(#c0566b, #f09aa9);
+
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --display: "Alumni Sans Pinstripe", var(--sans);
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Language: <html lang> is "ru" or "en", the other language is hidden */
+html:not([lang="ru"]) [lang="ru"],
+html[lang="ru"] [lang="en"] {
+    display: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(var(--band) 0 50vh, var(--bg) 50vh) var(--bg) no-repeat;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    transition: background-color .25s, color .25s;
+}
+
+svg {
+    width: 1.15em;
+    height: 1.15em;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+/* Falling lines in the background */
+.rain {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.rain i {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: 4px;
+    height: 150px;
+    border-radius: 4px;
+    background: var(--rain);
+    opacity: var(--o);
+    animation: rain var(--d) linear var(--w) infinite;
+}
+
+@keyframes rain {
+    from { transform: translate3d(8vh, -30vh, 0) rotate(14deg); }
+    to { transform: translate3d(-30vh, 125vh, 0) rotate(14deg); }
+}
+
+/* Language and theme controls */
+.controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+}
+
+.controls button {
+    border: 0;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--btn-text);
+    cursor: pointer;
+}
+
+.seg {
+    display: flex;
+    padding: 3px;
+    border-radius: 999px;
+    background: var(--card);
+    box-shadow: 0 2px 12px var(--glow);
+}
+
+.seg button {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: none;
+}
+
+.seg button[aria-pressed="true"] {
+    background: var(--btn);
+}
+
+.theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--card);
+    box-shadow: 0 2px 12px var(--glow);
+}
+
+.theme-toggle svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+}
+
+/* The icon shows the theme you would switch to */
+.icon-sun {
+    display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .icon-sun { display: block; }
+    :root:not([data-theme="light"]) .icon-moon { display: none; }
+}
+
+:root[data-theme="dark"] .icon-sun { display: block; }
+:root[data-theme="dark"] .icon-moon { display: none; }
+
+/* Sections: one card at a time, picked by the URL hash (#prices, #portfolio) */
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px 72px;
+}
+
+.card {
+    display: none;
+    width: 100%;
+    max-width: 880px;
+    padding: 40px;
+    background: var(--card);
+    box-shadow: 0 0 90px 10px var(--glow);
+    scroll-margin-top: 80px;
+    animation: appear .35s ease-out;
+    transition: background-color .25s;
+}
+
+.card:target,
+main:not(:has(.card:target)) #home {
+    display: flex;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(12px); }
+}
+
+.card--text,
+.card--wide {
+    flex-direction: column;
+    align-items: center;
+}
+
+.card--text {
+    max-width: 720px;
+}
+
+.card--wide {
+    max-width: 1160px;
+}
+
+/* Home */
+.card--home {
+    padding: 12px;
+    align-items: stretch;
+}
+
+.intro {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 40px 24px;
+    text-align: center;
+}
+
+.cover {
+    flex: 1;
+    width: 50%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.title {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(64px, 9vw, 92px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: .02em;
+}
+
+.subtitle,
+.status {
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--muted);
+}
+
+.status::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: .8em;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.status--closed {
+    color: var(--no);
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 150px;
+    padding: 12px 22px;
+    border-radius: 14px;
+    background: var(--btn);
+    color: var(--btn-text);
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-decoration: none;
+    transition: background-color .15s, transform .15s;
+}
+
+.btn:hover {
+    background: var(--btn-hover);
+}
+
+.btn:active {
+    transform: scale(.97);
+}
+
+.btn--small {
+    min-width: 0;
+    padding: 9px 18px;
+    font-size: 14px;
+}
+
+.socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.socials a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--accent);
+    transition: background-color .15s, transform .15s;
+}
+
+.socials a:hover {
+    background: var(--btn);
+    transform: translateY(-2px);
+}
+
+.socials svg {
+    width: 26px;
+    height: 26px;
+}
+
+/* Prices */
+.heading {
+    margin: 32px 0 20px;
+    font-family: var(--display);
+    font-size: 44px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: .04em;
+    text-align: center;
+}
+
+.prices {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.prices li {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 17px;
+}
+
+/* Dotted leader between the name and the price */
+.prices li::before {
+    content: "";
+    order: 1;
+    flex: 1;
+    min-width: 24px;
+    border-bottom: 2px dotted var(--line);
+}
+
+.prices b {
+    order: 2;
+    font-size: 19px;
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.divider {
+    margin: 28px 0 20px;
+    color: var(--accent);
+    letter-spacing: .2em;
+}
+
+.terms {
+    width: 100%;
+    color: var(--muted);
+}
+
+.terms p {
+    margin: 0 0 20px;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+}
+
+.terms h3 {
+    margin: 28px 0 12px;
+    font-size: 13px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--no);
+    text-align: center;
+}
+
+.terms ul {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.terms li {
+    position: relative;
+    padding: 5px 0 5px 22px;
+}
+
+.terms li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+    line-height: 2.1;
+}
+
+.terms .no li::before {
+    content: "✕";
+    color: var(--no);
+}
+
+/* Portfolio */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+/* --r is the image aspect ratio (width / height); rows are 260px tall unless the card is narrower */
+.gallery a {
+    width: min(100%, calc(260px * (var(--r))));
+    overflow: hidden;
+    background: var(--btn);
+    cursor: zoom-in;
+}
+
+.gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .3s;
+}
+
+.gallery a:hover img {
+    transform: scale(1.04);
+}
+
+.card--wide > .btn:last-child {
+    margin-top: 24px;
+}
+
+#lightbox {
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-out;
+}
+
+#lightbox::backdrop {
+    background: rgba(0, 0, 0, .85);
+}
+
+#lightbox img {
+    display: block;
+    max-width: 94vw;
+    max-height: 94vh;
+    max-height: 94dvh;
+}
+
+@media (max-width: 720px) {
+    .card {
+        padding: 28px 20px;
+    }
+
+    .card--home {
+        flex-direction: column;
+        padding: 12px;
+    }
+
+    .cover {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .rain {
+        display: none;
+    }
+
+    .card {
+        animation: none;
+    }
+}
