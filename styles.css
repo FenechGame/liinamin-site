@@ -208,7 +208,7 @@ main:not(:has(.card:target)) #home {
 }
 
 .card--wide {
-    max-width: 1160px;
+    max-width: 960px;
 }
 
 /* Home */
@@ -433,28 +433,44 @@ main:not(:has(.card:target)) #home {
 
 /* Portfolio */
 .gallery {
+    --cols: 3;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
     gap: 12px;
     width: 100%;
     margin-bottom: 16px;
+    container-type: inline-size;
 }
 
-/* --r is the image aspect ratio (width / height); rows are 260px tall unless the card is narrower */
+/* Square tiles, --cols per row; landscape images (class "wide") take two columns */
 .gallery a {
-    width: min(100%, calc(260px * (var(--r))));
+    --tile: calc((100cqw - (var(--cols) - 1) * 12px) / var(--cols) - .1px);
+    width: var(--tile);
+    height: var(--tile);
+    border: 1px solid var(--accent);
+    border-radius: 14px;
     overflow: hidden;
     background: var(--btn);
     cursor: zoom-in;
 }
 
+.gallery a.wide {
+    width: calc(var(--tile) * 2 + 12px);
+}
+
+/* Thumbnails are crops; a click opens the whole image */
 .gallery img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
     transition: transform .3s;
+}
+
+.gallery .wide img {
+    object-position: center;
 }
 
 .gallery a:hover img {
@@ -497,6 +513,10 @@ main:not(:has(.card:target)) #home {
 
     .cover {
         width: 100%;
+    }
+
+    .gallery {
+        --cols: 2;
     }
 }
 
